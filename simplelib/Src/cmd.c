@@ -81,16 +81,16 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         // //调用DMA接受完毕后的回调函数，最主要的目的是要将串口的状态设置为Ready，否则无法开启下一次DMA
         HAL_UART_DMAStop(&huart3);  //停止本次DMA
 
-        uint8_t *clr = DMAaRxBuffer-1;
-        while(*(++clr) == '\0' && clr < DMAaRxBuffer+DMA_BUFFER_SIZE);
-        strcpy((char *)DMAUSART_RX_BUF,(char *)clr);
+        uint8_t *clr = DMAaRxBuffer;
+        while(*(clr++) == '\0' && clr < DMAaRxBuffer+DMA_BUFFER_SIZE);
+        strcpy((char *)DMAUSART_RX_BUF,(char *)(clr-1));
         if (DMAUSART_RX_BUF[0] != '\0') {
             DMA_RxOK_Flag = 1;
         }
         memset(DMAaRxBuffer, 0, 98);
         HAL_UART_Receive_DMA(&CMD_USART, (uint8_t *)&DMAaRxBuffer, 99);
     }
-    if(huart->Instance==USART1)
+    if(huart->Instance==VEGA_USART.Instance)
     {
         uint8_t temp;
         __HAL_UART_CLEAR_IDLEFLAG(huart);   //清除函数空闲标志
@@ -236,6 +236,13 @@ static void _cmd_help(const void *key, void **value, void *c1) {
     uprintf("%s: %s\r\n", key, usage);
 }
 
+
+/**将全场定位从串口收到的数据存入
+*参数：void
+*返回值： void 注：直接将结果写入了底盘结构体中
+*说明: 更新底盘目前位置的函数
+*移植者: zx
+*/
 void usart_exc_DMA_vega()
 {
     if(DMA_RxOK_Flag_vega)
@@ -261,7 +268,6 @@ void usart_exc_DMA_vega()
             }
         }
         DMA_RxOK_Flag_vega = 0;
-        memset(DMAUSART_RX_BUF_vega,0,98);
-        
+        memset(DMAUSART_RX_BUF_vega,0,98);        
     }
 }

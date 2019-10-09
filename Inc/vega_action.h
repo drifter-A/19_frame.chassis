@@ -10,6 +10,7 @@
 #include "string.h"
 #include "stdarg.h"
 #include "usart.h"
+#include "simplelib.h"
 
 void vega_action_setPos(float pos_x, float pos_y);//重新设置坐标值
 void vega_action_setAngle(float angle);//重新设置角度值

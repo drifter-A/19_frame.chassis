@@ -15,23 +15,23 @@ void vega_action_reset()
         //HAL_Delay(12000);
         for(int i = 0;i<=20;i++)
         {
-            uprintf(ACTION_USART,"ACT0");
+            uprintf("ACT0");
         }
         //chassis_init_pos(0,0);
         //uprintf(CMD_USART,"复位：x = %f   y = %f   angle = %f\r\n",chassis.g_vega_pos_x,chassis.g_vega_pos_y,chassis.g_vega_angle);
 }
 void vega_action_setAll(float pos_x, float pos_y, float angle)
 {
-	uprintf(ACTION_USART,"ACTA%f%f%f\n",angle,pos_x,pos_y);	
+	uprintf("ACTA%f%f%f\n",angle,pos_x,pos_y);	
 }
 void vega_action_setPos(float pos_x, float pos_y)
 {
-	uprintf(ACTION_USART,"ACTD%f%f\n",pos_x,pos_y);
+	uprintf("ACTD%f%f\n",pos_x,pos_y);
 }
 
 void vega_action_setAngle(float angle)
 {
-	uprintf(ACTION_USART,"ACTJ%f\n",angle);
+	uprintf("ACTJ%f\n",angle);
 }
 
 
@@ -44,6 +44,6 @@ void vega_action_init()
 void vega_action_cherk()
 {
         //HAL_Delay(12000);
-	uprintf(ACTION_USART,"ACTR");
+	uprintf("ACTR");
         //uprintf(CMD_USART,"复位：x = %f   y = %f   angle = %f\r\n",chassis.g_vega_pos_x,chassis.g_vega_pos_y,chassis.g_vega_angle);
 }

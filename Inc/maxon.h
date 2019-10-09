@@ -15,15 +15,17 @@
 #define DATA_2    7
 #define DATA_1    8
 #define CHECK     9
+
 #define MOTOR0_ID huart4
 #define MOTOR1_ID huart1
-#define MOTOR3_ID huart3
+#define MOTOR3_ID huart3    //这三个在目前代码中没有用到
+
 #define MAX_MOTOR_SPEED 630
 
-//void maxon_newsetSpeed(uint32_t can_ID, int speed);
+
 void maxon_setSpeed_i(UART_HandleTypeDef* USARTx , int si);
 void maxon_setSpeed_p(UART_HandleTypeDef* USARTx , int p);
-//void maxon_setSpeed(UART_HandleTypeDef* USARTx, int speed);
+
 void maxon_save(UART_HandleTypeDef* USARTx);
 void maxon_canset3speed(int s1,int s2,int s0);
 

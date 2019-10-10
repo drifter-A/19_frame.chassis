@@ -16,7 +16,9 @@
         "stdarg.h": "c",
         "hash.h": "c",
         "configure.h": "c",
-        "chassis.h": "c"
+        "chassis.h": "c",
+        "usart.h": "c",
+        "can_func.h": "c"
     },
     "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0 }",
     "editor.lineNumbers": "relative"

@@ -24,10 +24,11 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+
 
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
+#include "stm32f4xx_hal.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart4;

@@ -28,8 +28,10 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "simplelib.h"
 #include "stm32f4xx_hal.h"
-
+#include "chassis.h"
+#include "configure.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -47,7 +49,10 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+typedef struct{
+  int main_run_flag;
+  int chassis_control_flag;
+}Main_Flag;
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

@@ -17,14 +17,6 @@ void vega_action_setAngle(float angle);//重新设置角度值
 void vega_action_setAll(float pos_x, float pos_y, float angle);
 void vega_action_reset();//将坐标和角度都清零
 void vega_action_init();
-	
-
-
-
-
-
-
-
 
 
 

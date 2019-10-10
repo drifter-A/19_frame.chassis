@@ -16,7 +16,7 @@ extern "C" {
 #include "can.h"
 #include "simplelib_config.h"
 
-typedef union{
+typedef union can_msg_union{
     char ch[8];
     uint8_t ui8[8];
     uint16_t ui16[4];
@@ -24,7 +24,7 @@ typedef union{
     int in[2];
     float fl[2];
     double df;
-} can_msg;
+}can_msg;
 
 extern CAN_HandleTypeDef HCAN;
 extern CAN_TxHeaderTypeDef TxHeader;

@@ -57,6 +57,7 @@ void cmd_init(void) {
         cmd_table = HashTable_create(str_cmp, hashStr, NULL);
     }
     cmd_add("help", "show cmd usage", cmd_help_func);
+    
 }
 
 void usart_exc_DMA() {
@@ -79,7 +80,7 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         // temp = hdma_usart3_rx.Instance->CNDTR;
         // huart->hdmarx->XferCpltCallback(huart->hdmarx);
         // //调用DMA接受完毕后的回调函数，最主要的目的是要将串口的状态设置为Ready，否则无法开启下一次DMA
-        HAL_UART_DMAStop(&huart3);  //停止本次DMA
+        HAL_UART_DMAStop(&CMD_USART);  //停止本次DMA
 
         uint8_t *clr = DMAaRxBuffer;
         while(*(clr++) == '\0' && clr < DMAaRxBuffer+DMA_BUFFER_SIZE);
@@ -98,7 +99,7 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         temp= huart->Instance->DR;//读出串口的数据，防止在关闭DMA期间有数据进来，造成ORE错误
         //temp = hdma_usart3_rx.Instance->CNDTR; 
         //huart->hdmarx->XferCpltCallback(huart->hdmarx); //调用DMA接受完毕后的回调函数，最主要的目的是要将串口的状态设置为Ready，否则无法开启下一次DMA
-        HAL_UART_DMAStop(&huart1);      //停止本次DMA
+        HAL_UART_DMAStop(&VEGA_USART);      //停止本次DMA
         UNUSED(temp);
         strcpy((char *)DMAUSART_RX_BUF_vega,(char *)DMAaRxBuffer_vega);
         if(DMAUSART_RX_BUF_vega[0]!='\0')
@@ -106,7 +107,7 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         
         usart_exc_DMA_vega();
         memset(DMAaRxBuffer_vega,0,98);
-        HAL_UART_Receive_DMA(&huart1,(uint8_t *)&DMAaRxBuffer_vega, 99); //zx:开启DMA？
+        HAL_UART_Receive_DMA(&VEGA_USART,(uint8_t *)&DMAaRxBuffer_vega, 99); //zx:开启DMA？
     }
 }
 
@@ -167,8 +168,8 @@ void cmd_help_func(int argc,char *argv[]){
 void cmd_add(char *cmd_name, char *cmd_usage, void (*cmd_func)(int argc, char *argv[])) {
     // FIXME: ZeroVoid	2019/9/23	 name or usage too long
     struct cmd_info *new_cmd = (struct cmd_info*)malloc(sizeof(struct cmd_info)); 
-    char *name = (char*) malloc(strlen(cmd_name)+1);
-    char *usage = (char*) malloc(strlen(cmd_usage)+1);
+    char *name = (char*) malloc( sizeof(char)*(strlen(cmd_name)+1) );
+    char *usage = (char*) malloc(sizeof(char)*(strlen(cmd_name)+1));
     strcpy(name, cmd_name);
     strcpy(usage, cmd_usage);
     new_cmd->cmd_func = cmd_func;

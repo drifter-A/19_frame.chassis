@@ -18,6 +18,9 @@ float catch_bone_modify_y = 0;
 float ERR_angle_m3 = -PI/3 , ERR_angle_m1 = -PI/3 + 1*2*PI/3 , ERR_angle_m0 = -PI/3 + 2*2*PI/3;
 
 /*Variable Area*/
+Chassis chassis;
+Chassis_Status chassis_status;
+
 static int point_retrack_first_ref_flag = 1;    //重新找点的控制变量
 
 /**底盘初始化
@@ -35,6 +38,8 @@ void chassis_zero()
     chassis_status.point_tracer_flag = 0;   //目前调试阶段 一开始关闭跑点
     chassis_status.ENBALE_POINT_COLLECTION_TRACER=0;    //为1时开启跑点，为0时禁用跑点
     chassis_status.go_to_point_test_flag = 0;           //go_to_point_for_test函数控制变量，1为开启，0为关闭
+
+    chassis_status.vega_is_ready = 0;       //初始化前不ready
 }
 
 void chassis_init(void)
@@ -253,7 +258,7 @@ float point_tracer_angle_return_static(float start_x, float start_y , float end_
 //static float Boost_Slow_Period = 0.105;
 static float Boost_Period = 0.1;
 static float Slow_Period = 0.16;
-static int first_time_controler = 1; //值为1时：对一个新点使用此函数（不用多次调用BoostAndSlowUpdate）
+int first_time_controler = 1; //值为1时：对一个新点使用此函数（不用多次调用BoostAndSlowUpdate）
 static float last_point_x,last_point_y,origin_distance;
 
 /**梯形速度曲线 加速阶段和减速阶段根据不同距离和速度进行自动调整 

@@ -7,7 +7,7 @@ extern "C" {
 #include "can.h"
     
 void can_func_init();
-void can_suc_rx(can_msg *data);
+void can_suc_rx(union can_msg_union *data);
     
 #ifdef __cplusplus
 }

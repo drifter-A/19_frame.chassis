@@ -58,6 +58,10 @@
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
+Main_Flag main_flag={
+  0,  //main_run_flag
+  0   //chassis_control_flag
+};
 
 /* USER CODE END PFP */
 
@@ -114,9 +118,22 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  main_flag.main_run_flag = 1;
   while (1)
   {
     simplelib_run();
+    if(main_flag.chassis_control_flag == 1){
+      main_flag.chassis_control_flag = 0;
+      if(chassis_status.ENBALE_POINT_COLLECTION_TRACER == 1){
+            point_collection_tracer(3);
+            }
+            if(chassis_status.go_to_point_test_flag ==1){
+            go_to_point_for_test(go_to_point_x , go_to_point_y);
+            }
+
+            if(chassis_status.ENBALE_POINT_COLLECTION_TRACER ==0 && chassis_status.go_to_point_test_flag == 0)
+            chassis_gostraight_zx(0,0,0,0);
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -164,6 +181,16 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  /**Configure the Systick interrupt time 
+    */
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+
+    /**Configure the Systick 
+    */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /**
@@ -187,7 +214,34 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_SYSTICK_Callback(void){
+    static int time_1ms_cnt = 0;
+    //static int delay_time_cnt = 0;
+    time_1ms_cnt++;
+    if(main_flag.main_run_flag == 1)
+    {
+        if(time_1ms_cnt % 12000 == 0 && chassis_status.vega_is_ready == 0)
+        {
+            ///vega_action_init();
+            chassis_status.vega_is_ready = 1;
+            uprintf("vega is ready\r\n");
+        }
+              
+        if(chassis_status.vega_is_ready == 1 && time_1ms_cnt % 5 == 0){
+          main_flag.chassis_control_flag = 1;
+        }
+        
+        if(time_1ms_cnt % 500 == 0)
+        {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
+        }
+        
+        if(time_1ms_cnt >= 65533)
+        {
+            time_1ms_cnt = 0;
+        }
+    }
+}
 /* USER CODE END 4 */
 
 /**

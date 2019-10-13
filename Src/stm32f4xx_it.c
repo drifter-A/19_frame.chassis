@@ -190,7 +190,33 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-
+  static int time_1ms_cnt = 0;
+    //static int delay_time_cnt = 0;
+    
+    if(main_flag.main_run_flag == 1)
+    {
+      time_1ms_cnt++;  
+      if(time_1ms_cnt % 12000 == 0 && chassis_status.vega_is_ready == 0)
+        {
+            ///vega_action_init();
+            chassis_status.vega_is_ready = 1;
+            uprintf("vega is ready\r\n");
+        }
+              
+        if(chassis_status.vega_is_ready == 1 && time_1ms_cnt % 5 == 0){
+          main_flag.chassis_control_flag = 1;
+        }
+        
+        if(time_1ms_cnt % 500 == 0)
+        {
+          HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
+        }
+        
+        if(time_1ms_cnt >= 65533)
+        {
+            time_1ms_cnt = 0;
+        }
+    }
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */

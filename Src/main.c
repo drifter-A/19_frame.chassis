@@ -223,35 +223,7 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_IncTick(void){
-    static int time_1ms_cnt = 0;
-    //static int delay_time_cnt = 0;
-    
-    if(main_flag.main_run_flag == 1)
-    {
-      time_1ms_cnt++;  
-      if(time_1ms_cnt % 12000 == 0 && chassis_status.vega_is_ready == 0)
-        {
-            ///vega_action_init();
-            chassis_status.vega_is_ready = 1;
-            uprintf("vega is ready\r\n");
-        }
-              
-        if(chassis_status.vega_is_ready == 1 && time_1ms_cnt % 5 == 0){
-          main_flag.chassis_control_flag = 1;
-        }
-        
-        if(time_1ms_cnt % 500 == 0)
-        {
-          HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
-        }
-        
-        if(time_1ms_cnt >= 65533)
-        {
-            time_1ms_cnt = 0;
-        }
-    }
-}
+
 /* USER CODE END 4 */
 
 /**

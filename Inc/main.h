@@ -63,7 +63,7 @@ typedef struct{
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+extern Main_Flag main_flag;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

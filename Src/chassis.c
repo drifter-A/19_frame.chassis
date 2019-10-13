@@ -454,7 +454,7 @@ void point_collection_tracer(int point_num){
         }
       }
     }
-    else{   //chassis_status.count == point_num-1
+    else{   //chassis_status.count == point_num-1 //最后一个点
       mid_control = point_tracer(zx_points_pos_x[chassis_status.count-1],zx_points_pos_y[chassis_status.count-1],zx_points_pos_x[chassis_status.count] ,zx_points_pos_y[chassis_status.count], 150 , 0 , 200);
       //point_retrack(zx_points_pos_x[chassis_status.count-1],zx_points_pos_y[chassis_status.count-1],zx_points_pos_x[chassis_status.count] ,zx_points_pos_y[chassis_status.count]);
     }

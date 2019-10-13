@@ -5,9 +5,9 @@ void cmd_func_init(void) {
     cmd_add("hello", "just", cmd_hello_func);
     cmd_add("print_pos","打印全场定位位置",cmd_print_pos);
     cmd_add("line_PID","line_control_PID",cmd_line_control_PID);
-    cmd_add("go_to"," go_to_some_point",cmd_line_control_PID);
+    cmd_add("go_to"," go_to_some_point",cmd_go_to_point_for_test);
     cmd_add("collect_tracer"," start_collect_tracer",cmd_point_collection_tracer);
-    
+    cmd_add("stop_flag","control stop_flag",cmd_stop_flag);
     #ifdef DEBUG
     cmd_add("can_test", "test can", cmd_can_test);
     #endif

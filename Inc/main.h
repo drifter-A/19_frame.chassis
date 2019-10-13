@@ -28,13 +28,17 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+#define CHASSIS
+
 #include "simplelib.h"
 #include "stm32f4xx_hal.h"
 #include "chassis.h"
 #include "configure.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

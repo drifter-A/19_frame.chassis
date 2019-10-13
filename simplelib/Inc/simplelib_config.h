@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef __cplusplus
 }

@@ -41,9 +41,8 @@ void can_exc_callback(void);
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 void HAL_CAN_RxFifo0FullCallback(CAN_HandleTypeDef *hcan);
 
-#ifdef DEBUG
 void can_send_test(void);
-#endif //DEBUG
+
 
 #ifdef __cplusplus
 }

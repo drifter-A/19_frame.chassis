@@ -188,11 +188,14 @@ void uprintf(char *fmt, ...) {
     // 重新设置USART准备状态，并解锁串口,否则无法再次输出
     CMD_USART.gState = HAL_UART_STATE_READY;
     //__HAL_UNLOCK(&CMD_USART);
+    HAL_UART_Transmit_DMA(&CMD_USART, (uint8_t *)print_buffer, size);
+    /*
     if (HAL_UART_Transmit_DMA(&CMD_USART, (uint8_t *)print_buffer, size) != HAL_OK) {
         HAL_Delay(10);
     }
+    */
     // TODO:	ZeroVoid	due:10/7	优化输出，异步输出，可能纯在busy时再次调用，会被忽略，输出缺失
-    while(CMD_USART.hdmatx->State != HAL_DMA_STATE_READY);
+    //while(CMD_USART.hdmatx->State != HAL_DMA_STATE_READY);
     //HAL_UART_Transmit(&CMD_USART, (uint8_t*)uart_buffer, size, 1000);
 }
 

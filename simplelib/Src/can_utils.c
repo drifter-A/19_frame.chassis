@@ -85,9 +85,9 @@ void can_send_test(void) {
  */
 int can_send_msg(uint16_t std_id, can_msg *msg) {
   TxHeader.StdId = std_id;
-  #ifdef DEBUG
-  uprintf("%d %d %d\r\n", std_id, msg->in[0], msg->in[1]);
-  #endif //DEBUG
+
+  //uprintf("%d %d %d\r\n", std_id, msg->in[0], msg->in[1]);
+
   if (HAL_CAN_AddTxMessage(&HCAN, &TxHeader, msg->ui8, &TxMailbox) != HAL_OK) {
     //uprintf("Error: CAN can't send msg.\r\n");
     return 1;

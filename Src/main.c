@@ -115,16 +115,19 @@ int main(void)
   simplelib_init(&huart3, &hcan1);
 
   /* USER CODE END 2 */
-
+  chassis_init();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   main_flag.main_run_flag = 1;
+  main_flag.chassis_control_flag = 0;
   while (1)
   {
     simplelib_run();
+    
+    #ifdef CHASSIS
     if(main_flag.chassis_control_flag == 1){
       main_flag.chassis_control_flag = 0;
-      if(chassis_status.ENBALE_POINT_COLLECTION_TRACER == 1){
+            if(chassis_status.ENBALE_POINT_COLLECTION_TRACER == 1){
             point_collection_tracer(3);
             }
             if(chassis_status.go_to_point_test_flag ==1){
@@ -134,6 +137,8 @@ int main(void)
             if(chassis_status.ENBALE_POINT_COLLECTION_TRACER ==0 && chassis_status.go_to_point_test_flag == 0)
             chassis_gostraight_zx(0,0,0,0);
     }
+    #endif
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -147,8 +152,12 @@ int main(void)
   */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  // RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  // RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  RCC_OscInitTypeDef RCC_OscInitStruct;
+  RCC_ClkInitTypeDef RCC_ClkInitStruct;
+
 
   /** Configure the main internal regulator output voltage 
   */
@@ -214,13 +223,14 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_SYSTICK_Callback(void){
+void HAL_IncTick(void){
     static int time_1ms_cnt = 0;
     //static int delay_time_cnt = 0;
-    time_1ms_cnt++;
+    
     if(main_flag.main_run_flag == 1)
     {
-        if(time_1ms_cnt % 12000 == 0 && chassis_status.vega_is_ready == 0)
+      time_1ms_cnt++;  
+      if(time_1ms_cnt % 12000 == 0 && chassis_status.vega_is_ready == 0)
         {
             ///vega_action_init();
             chassis_status.vega_is_ready = 1;
@@ -233,7 +243,7 @@ void HAL_SYSTICK_Callback(void){
         
         if(time_1ms_cnt % 500 == 0)
         {
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
+          HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
         }
         
         if(time_1ms_cnt >= 65533)

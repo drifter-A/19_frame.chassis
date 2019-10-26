@@ -16,10 +16,11 @@ void cmd_can_test(int argc, char *argv[]);
 /*User's*/
 extern float go_to_point_x,go_to_point_y;
 void cmd_print_pos(int argc, char *argv[]);
-void cmd_stop_flag(int argc,char *argv[]);
-void cmd_line_control_PID(int argc,char *argv[]);
+void cmd_stop(int argc,char *argv[]);
+void cmd_y_control_PID(int argc,char *argv[]);
 void cmd_go_to_point_for_test(int argc,char *argv[]);
-void cmd_point_collection_tracer(int argc,char *argv[]);
+void cmd_run_point(int argc,char *argv[]);
+void cmd_status();
 
 #ifdef __cplusplus
 }

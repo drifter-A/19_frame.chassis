@@ -1,14 +1,14 @@
-"D:\软件\IAR For RAM\arm\bin\armproc.dll" 
+"D:\arm\bin\armproc.dll" 
 
-"D:\软件\IAR For RAM\arm\bin\armjlink2.dll" 
+"D:\arm\bin\armjlink2.dll" 
 
-"D:\RoboconCode\19_frame\EWARM\19_frame\Exe\19_frame.out" 
+"D:\robocon\19_frame.chassis\EWARM\19_frame\Exe\19_frame.out" 
 
---plugin "D:\软件\IAR For RAM\arm\bin\armbat.dll" 
+--plugin="D:\arm\bin\armbat.dll" 
 
---device_macro "D:\软件\IAR For RAM\arm\config\debugger\ST\STM32F4xx.dmac" 
+--device_macro="D:\arm\config\debugger\ST\STM32F4xx.dmac" 
 
---flash_loader "D:\软件\IAR For RAM\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
+--flash_loader="D:\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
 
 
 

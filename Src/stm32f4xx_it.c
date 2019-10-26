@@ -203,13 +203,15 @@ void SysTick_Handler(void)
             uprintf("vega is ready\r\n");
         }
               
-        if(chassis_status.vega_is_ready == 1 && time_1ms_cnt % 5 == 0){
+        if(chassis_status.vega_is_ready == 1 && time_1ms_cnt % 5 == 0)
+        {
           main_flag.chassis_control_flag = 1;
         }
         
         if(time_1ms_cnt % 500 == 0)
         {
           HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);      //小灯闪烁
+          print_pos = 1;
         }
         
         if(time_1ms_cnt >= 65533)
@@ -279,7 +281,11 @@ void CAN1_RX0_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  if(__HAL_UART_GET_FLAG(&VEGA_USART, UART_FLAG_IDLE) != RESET)
+  {
+    HAL_UART_IDLECallback(&VEGA_USART);
+    return ;
+    }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */

@@ -48,6 +48,17 @@ void usart_DMA_init(UART_HandleTypeDef *cmd_usart) {
     __HAL_UART_ENABLE_IT(&CMD_USART,UART_IT_IDLE); // 开启空闲中断
 }
 
+/**开启dma
+*参数：void
+*返回值： void 
+*说明: 将此函数加在while循环之前
+*by：zx
+*/
+void usart_dma_init(){
+    HAL_UART_Receive_DMA(&huart3, (uint8_t *)&DMAaRxBuffer, 99);
+    HAL_UART_Receive_DMA(&huart1, (uint8_t *)&DMAaRxBuffer_vega, 99);
+}
+
 /**
  * @brief	指令初始化函数，仅供模块初始化调用
  * @return	None
@@ -71,7 +82,8 @@ void usart_exc_DMA() {
 }
 
 void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
-    if (huart->Instance == CMD_USART.Instance) {
+    if (huart->Instance == CMD_USART.Instance) 
+    {
         uint8_t temp;
         __HAL_UART_CLEAR_IDLEFLAG(huart);  //清除函数空闲标志
         temp = huart->Instance->SR;
@@ -85,12 +97,14 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         uint8_t *clr = DMAaRxBuffer;
         while(*(clr++) == '\0' && clr < DMAaRxBuffer+DMA_BUFFER_SIZE);
         strcpy((char *)DMAUSART_RX_BUF,(char *)(clr-1));
-        if (DMAUSART_RX_BUF[0] != '\0') {
+        if (DMAUSART_RX_BUF[0] != '\0') 
+        {
             DMA_RxOK_Flag = 1;
         }
         memset(DMAaRxBuffer, 0, 98);
         HAL_UART_Receive_DMA(&CMD_USART, (uint8_t *)&DMAaRxBuffer, 99);
     }
+    
     if(huart->Instance==VEGA_USART.Instance)
     {
         uint8_t temp;
@@ -107,7 +121,7 @@ void HAL_UART_IDLECallback(UART_HandleTypeDef *huart) {
         
         usart_exc_DMA_vega();
         memset(DMAaRxBuffer_vega,0,98);
-        HAL_UART_Receive_DMA(&VEGA_USART,(uint8_t *)&DMAaRxBuffer_vega, 99); //zx:开启DMA？
+        HAL_UART_Receive_DMA(&VEGA_USART,(uint8_t *)&DMAaRxBuffer_vega, 99); //开启DMA？
     }
 }
 

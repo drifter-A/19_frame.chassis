@@ -28,15 +28,21 @@ extern "C" {
 #define MAX_SPEED_ZX 850
 #define PI 3.1415926535
 #define EXP 2.718281828
-#define ARRIVE_DISTANCE 0.02
 
 #define VEGA_USART huart1
 /*Struct Area*/
-typedef struct can_id_send{
+typedef struct{
     uint32_t motor0_id;//电机id
     uint32_t motor1_id;
     uint32_t motor2_id;
 }Can_id_send;
+
+typedef struct can_id_recive{
+    uint32_t handle_button_id;//手柄按键
+    uint32_t handle_rocker_id;//手柄摇杆
+}Can_id_recive;
+
+extern Can_id_recive recive_id;
 
 /*
 typedef struct can_id_recive{

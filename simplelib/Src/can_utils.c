@@ -61,7 +61,8 @@ void can_exc_callback(void) {
     }
 }
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) 
+{
     HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, can_rx_data.ui8);
     rx_id = RxHeader.StdId;
     rx_buffer.df = can_rx_data.df;

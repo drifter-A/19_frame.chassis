@@ -1225,6 +1225,21 @@
                     <name>$PROJ_DIR$\..\simplelib\Src\utils.c</name>
                 </file>
             </group>
+            <group>
+                <name>Track</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\chassis_handle.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Inc\chassis_handle.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\point.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Inc\point.h</name>
+                </file>
+            </group>
             <file>
                 <name>$PROJ_DIR$\..\Src\can.c</name>
             </file>
@@ -1245,9 +1260,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\maxon.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Src\point_zx.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>

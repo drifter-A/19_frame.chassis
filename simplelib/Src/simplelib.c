@@ -22,16 +22,18 @@ void simplelib_init(UART_HandleTypeDef *cmd_usart, CAN_HandleTypeDef *hcan) {
     usart_DMA_init(cmd_usart);
     can_init(hcan);
     cmd_func_init();
-    can_func_init();
+    //can_func_init();
     uprintf("simplelib init done\r\n");
 }
 
 void simplelib_run(void) {
-    if (DMA_RxOK_Flag) {
+    if (DMA_RxOK_Flag) 
+    {
         usart_exc_DMA();
         DMA_RxOK_Flag = 0;
     }
-    if (can_exc_callback_flag) {
+    if (can_exc_callback_flag)
+    {
         can_exc_callback();
         can_exc_callback_flag = 0;
     }

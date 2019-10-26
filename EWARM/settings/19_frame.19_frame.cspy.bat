@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\软件\IAR For RAM\common\bin\cspybat" -f "D:\RoboconCode\19_frame\EWARM\settings\19_frame.19_frame.general.xcl" --backend -f "D:\RoboconCode\19_frame\EWARM\settings\19_frame.19_frame.driver.xcl" 
+"D:\\common\bin\cspybat" -f "D:\robocon\19_frame.chassis\EWARM\settings\19_frame.19_frame.general.xcl" --backend -f "D:\robocon\19_frame.chassis\EWARM\settings\19_frame.19_frame.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\软件\IAR For RAM\common\bin\cspybat" -f "D:\RoboconCode\19_frame\EWARM\settings\19_frame.19_frame.general.xcl" "--debug_file=%~1" --backend -f "D:\RoboconCode\19_frame\EWARM\settings\19_frame.19_frame.driver.xcl" 
+"D:\\common\bin\cspybat" -f "D:\robocon\19_frame.chassis\EWARM\settings\19_frame.19_frame.general.xcl" "--debug_file=%~1" --backend -f "D:\robocon\19_frame.chassis\EWARM\settings\19_frame.19_frame.driver.xcl" 
 
 @echo off 
 :end

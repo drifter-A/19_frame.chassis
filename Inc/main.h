@@ -56,6 +56,8 @@ extern "C" {
 typedef struct{
   int main_run_flag;
   int chassis_control_flag;
+  int chassis_handle_flag;
+  int chassis_automate_flag;
 }Main_Flag;
 /* USER CODE END EM */
 
@@ -64,6 +66,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 extern Main_Flag main_flag;
+extern int print_pos;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
